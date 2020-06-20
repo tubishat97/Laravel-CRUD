@@ -26,3 +26,20 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
+$factory->define(App\TodoTask::class, function ($faker) {
+    return [
+        'name' => $faker->sentence,
+        'description'  => $faker->sentence
+    ];
+});
+
+
+$factory->define(App\TodoMirror::class, function ($faker) {
+    $todo = factory('App\TodoTask')->create();
+    return [
+        'todo_task_id' =>  $todo->id,
+        'name' => $todo->name,
+        'description' => $todo->description,
+    ];
+});
