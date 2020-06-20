@@ -11,8 +11,8 @@ class Task extends Model
     use SoftDeletes;
     protected $fillable = ['name', 'description'];
 
-    public function todoTasks()
+    public function mirror()
     {
-        $this->belongsToMany('App/Mirror','task_mirror');
+       return $this->belongsToMany(Mirror::class,'task_mirror');
     }
 }

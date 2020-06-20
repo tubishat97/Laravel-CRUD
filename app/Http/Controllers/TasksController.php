@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mirror;
 use App\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class TasksController extends Controller
 {
@@ -41,15 +42,7 @@ class TasksController extends Controller
         return view('todo.delete-modal',compact('task'));
     }
 
-    /**
-     * Show the modal for deleting a new task.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showEditForm()
-    {
-        return view('todo.edit-task-form');
-    }
+
 
 
     /**
@@ -60,10 +53,21 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        Task::updateOrCreate(['name' => $request->name, 'description' => $request->description]);
-        Mirror::updateOrCreate(['name' => $request->name, 'description' => $request->description]);
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+        ]);
 
-        return redirect('/');
+          $task =  Task::create($request->all());
+          $task->mirror()->sync(
+              array(
+                  1 => array( 'task_id' => $task->id ),
+                  2 => array( 'mirror_id' => $task->id))
+          );
+
+        Session::flash('success', 'Task successfully added!');
+
+        return redirect()->back();
     }
 
     /**
@@ -83,10 +87,12 @@ class TasksController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task)
+    public function edit($id)
     {
-        //
+        $task = Task::find($id);
+        return view('todo.edit-task-form',compact('task'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -95,9 +101,17 @@ class TasksController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $id)
     {
-        //
+        $task = Task::findOrFail($id);
+
+        $input = $request->all();
+
+        $task->fill($input)->save();
+
+        Session::flash('success', 'Task successfully Edited!');
+
+        return redirect()->back();
     }
 
     /**
@@ -110,6 +124,8 @@ class TasksController extends Controller
     {
         $task = Task::find($id);
         $task->delete();
-        return back();
+        Session::flash('warning', 'Task successfully deleted!');
+        return redirect()->back();
+
     }
 }

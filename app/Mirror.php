@@ -9,8 +9,8 @@ class Mirror extends Model
 
     protected $fillable = ['name', 'description'];
 
-    public function todoTasks()
+    public function Task()
     {
-        $this->belongsToMany('App/Task','task_mirror');
+      return  $this->belongsToMany(Task::class,'task_mirror');
     }
 }

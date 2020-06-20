@@ -1,7 +1,23 @@
 @extends('layouts.layout')
 
 @section('content')
+
+    @if ( Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ Session::get('success') }}</strong>
+        </div>
+    @endif
+
+    @if (Session::get('warning'))
+        <div class="alert alert-warning alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ Session::get('warning') }}</strong>
+        </div>
+    @endif
+
     <div class="table-wrapper data-table">
+
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-6">
@@ -28,7 +44,7 @@
                 <td>{{$task->name}}</td>
                 <td>{{$task->description}}</td>
                 <td>
-                    <a href="javascript:;" class="edit" onclick="editTaskForm();return false; "><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="javascript:;" class="edit" onclick="editTaskForm('{{$task->id}}');return false; "><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <a  href="javascript:;" class="delete" onclick="deleteTaskModal('{{$task->id}}');return false; "><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                 </td>
             </tr>
@@ -77,8 +93,9 @@
         });
     }
 
-    function editTaskForm() {
-        var url = '{{ route("edit-task-form") }}';
+    function editTaskForm(task) {
+        var url = '{{ route("edit-task-form",":id") }}';
+        url = url.replace(':id', task);
         $.ajax({
             type: 'get',
             url: url,
