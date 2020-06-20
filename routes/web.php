@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'TasksController@index');
+Route::get('/add-task-form', 'TasksController@create')->name('add-task-form');
+Route::get('/edit-task-form', 'TasksController@showEditForm')->name('edit-task-form');
+Route::get('/delete-modal/{id}', 'TasksController@deleteModal')->name('delete-modal');
+
+Route::post('/store', 'TasksController@store')->name('store-task');
+Route::delete('/delete-task/{id}','TasksController@destroy')->name('delete-task');
+

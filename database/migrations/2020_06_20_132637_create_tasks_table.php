@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTodoTasksTable extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTodoTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('todo_tasks', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id('id');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
@@ -29,6 +29,6 @@ class CreateTodoTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('todo_tasks');
+        Schema::dropIfExists('tasks');
     }
 }

@@ -27,7 +27,7 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\TodoTask::class, function ($faker) {
+$factory->define(App\Task::class, function ($faker) {
     return [
         'name' => $faker->sentence,
         'description'  => $faker->sentence
@@ -35,11 +35,10 @@ $factory->define(App\TodoTask::class, function ($faker) {
 });
 
 
-$factory->define(App\TodoMirror::class, function ($faker) {
-    $todo = factory('App\TodoTask')->create();
+$factory->define(App\Mirror::class, function ($faker) {
+    $todo = factory('App\Task')->create();
     return [
-        'todo_task_id' =>  $todo->id,
         'name' => $todo->name,
-        'description' => $todo->description,
+        'description'  => $todo->description
     ];
 });
