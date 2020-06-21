@@ -15,11 +15,18 @@ class CreateMirrorsTable extends Migration
     {
         Schema::create('mirrors', function (Blueprint $table) {
             $table->id('id');
+            $table->foreignId('task_id');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+
+            $table->foreign('tasks_id')
+                ->references('id')->on('tasks')->onDelete('cascade')->onUpdate('cascade');
         });
+
+
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mirror;
 use App\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class TasksController extends Controller
@@ -57,16 +58,19 @@ class TasksController extends Controller
             'name' => 'required',
             'description' => 'required',
         ]);
+        $todo =  Task::create($request->all());
 
-          $task =  Task::create($request->all());
-          $task->mirror()->sync(
-              array(
-                  1 => array( 'task_id' => $task->id ),
-                  2 => array( 'mirror_id' => $task->id))
-          );
+    $inserts[] =
+        [
+        'tasks_id' => $todo->id,
+        'name' => $todo->name,
+        'description' => $todo->description,
+        'created_at' => $todo->created_at,
+        'updated_at' => $todo->updated_at ,
+    ];
+        DB::table('mirrors')->insert($inserts);
 
         Session::flash('success', 'Task successfully added!');
-
         return redirect()->back();
     }
 
@@ -104,10 +108,17 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {
         $task = Task::findOrFail($id);
-
         $input = $request->all();
-
         $task->fill($input)->save();
+
+        dd($task->mirror);
+
+
+
+
+
+        Session::flash('success', 'Task successfully added!');
+        return redirect()->back();
 
         Session::flash('success', 'Task successfully Edited!');
 
