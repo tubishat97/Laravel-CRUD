@@ -10,6 +10,8 @@ class Mirror extends Model
 {
     use SoftDeletes, LogsActivity;
 
+    protected  static $logAttributes = ['name', 'description'];
+
     protected $fillable = ['name', 'description'];
 
 }
