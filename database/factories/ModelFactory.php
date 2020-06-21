@@ -38,7 +38,10 @@ $factory->define(App\Task::class, function ($faker) {
 $factory->define(App\Mirror::class, function ($faker) {
     $todo = factory('App\Task')->create();
     return [
+        'id' => $todo->id,
         'name' => $todo->name,
-        'description'  => $todo->description
+        'description'  => $todo->description,
+        'created_at'  => $todo->created_at,
+        'updated_at'  => $todo->updated_at,
     ];
 });
