@@ -11,6 +11,6 @@ class Mirror extends Model
 
     public function Task()
     {
-      return  $this->belongsTo(Task::class,'tasks_id');
+      return  $this->belongsTo(Task::class,'id');
     }
 }

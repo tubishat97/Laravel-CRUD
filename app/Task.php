@@ -10,8 +10,4 @@ class Task extends Model
     use SoftDeletes;
     protected $fillable = ['name', 'description'];
 
-    public function mirror()
-    {
-       return $this->hasOne(Mirror::class);
-    }
 }

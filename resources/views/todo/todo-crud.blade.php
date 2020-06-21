@@ -23,7 +23,7 @@
                 <div class="col-sm-6">
                     <h2>Todo <b>Task</b></h2>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-12" style="margin-bottom: 3px;">
                     <a href="javascript:;" class="btn btn-success" onclick="addNewTaskForm();return false; "><i class="material-icons">&#xE147;</i> <span>Add New Task</span></a>
                 </div>
             </div>

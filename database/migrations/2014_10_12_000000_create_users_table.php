@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMirrorsTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateMirrorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mirrors', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('name')->nullable();
-            $table->text('description')->nullable();
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes();
-
         });
-
-
     }
 
     /**
@@ -32,6 +31,6 @@ class CreateMirrorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mirrors');
+        Schema::dropIfExists('users');
     }
 }
