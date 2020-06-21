@@ -5,7 +5,7 @@
             <form method="post" action="{{route('store-task')}}">
                 {{csrf_field()}}
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Employee</h4>
+                    <h4 class="modal-title">Add new task</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
