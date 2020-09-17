@@ -93,8 +93,8 @@
         });
     }
 
-    function editTaskForm(task) {
-        var url = '{{ route("edit-task-form",":id") }}';
+    let editTaskForm =  (task) => {
+        let url = '{{ route("edit-task-form",":id") }}';
         url = url.replace(':id', task);
         $.ajax({
             type: 'get',
@@ -105,6 +105,14 @@
             }
         });
     }
+
+
+    let test = (str) => {
+        console.log(str);
+    }
+
+    test('kareem');
+
 </script>
 @endsection
 
