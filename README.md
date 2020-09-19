@@ -3,10 +3,10 @@
 
 ```bash
 # Get the project
-https://github.com/tubishat97/Brooklyn-studios.git
+git clone https://github.com/tubishat97/Laravel-CRUD.git
 
 # Change directory
-cd Brooklyn-studios/
+cd Laravel-CRUD/
 
 # Rename env.example to .env and fill in all the keys and secrets and also generate a secure key for the app using `php artisan key:generate`
 
